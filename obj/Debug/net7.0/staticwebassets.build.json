@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "Hash": "3a3dCqfhxZQfxghpt+B411pGhxKpUclMaqOLRus6IIw=",
+  "Source": "e_commerce_backend",
+  "BasePath": "_content/e_commerce_backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "e_commerce_backend\\wwwroot",
+      "Source": "e_commerce_backend",
+      "ContentRoot": "E:\\asp\\e_commerce_backend\\wwwroot\\",
+      "BasePath": "_content/e_commerce_backend",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\asp\\e_commerce_backend\\wwwroot\\customer_images\\20231207151439562.jpg",
+      "SourceId": "e_commerce_backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\asp\\e_commerce_backend\\wwwroot\\",
+      "BasePath": "_content/e_commerce_backend",
+      "RelativePath": "customer_images/20231207151439562.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\customer_images\\20231207151439562.jpg"
+    },
+    {
+      "Identity": "E:\\asp\\e_commerce_backend\\wwwroot\\customer_images\\20231207155133185.jpg",
+      "SourceId": "e_commerce_backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\asp\\e_commerce_backend\\wwwroot\\",
+      "BasePath": "_content/e_commerce_backend",
+      "RelativePath": "customer_images/20231207155133185.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\customer_images\\20231207155133185.jpg"
+    },
+    {
+      "Identity": "E:\\asp\\e_commerce_backend\\wwwroot\\customer_images\\20231207160053986.jpg",
+      "SourceId": "e_commerce_backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\asp\\e_commerce_backend\\wwwroot\\",
+      "BasePath": "_content/e_commerce_backend",
+      "RelativePath": "customer_images/20231207160053986.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\customer_images\\20231207160053986.jpg"
+    }
+  ]
+}

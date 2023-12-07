@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\asp\\e_commerce_backend\\wwwroot\\customer_images\\20231207151439562.jpg",
+      "PackagePath": "staticwebassets\\customer_images\\20231207151439562.jpg"
+    },
+    {
+      "Id": "E:\\asp\\e_commerce_backend\\wwwroot\\customer_images\\20231207155133185.jpg",
+      "PackagePath": "staticwebassets\\customer_images\\20231207155133185.jpg"
+    },
+    {
+      "Id": "E:\\asp\\e_commerce_backend\\wwwroot\\customer_images\\20231207160053986.jpg",
+      "PackagePath": "staticwebassets\\customer_images\\20231207160053986.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.e_commerce_backend.props",
+      "PackagePath": "build\\e_commerce_backend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildMultiTargeting.e_commerce_backend.props",
+      "PackagePath": "buildMultiTargeting\\e_commerce_backend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.buildTransitive.e_commerce_backend.props",
+      "PackagePath": "buildTransitive\\e_commerce_backend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.e_commerce_backend.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
