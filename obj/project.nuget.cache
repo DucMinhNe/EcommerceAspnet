@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iZK+S/qA7BskpmvOUWSvf+qIp9+mXWNU8kGVEvmJX31ZqckRoNv7tbnltRcjSovRBkqq2jN5m68kpFeF+gVBbg==",
+  "dgSpecHash": "nhqLEPPtC3GCVIz2TuIxwG6iAZPQaHklNqUhJX8Yt2LR/rPJYPpnTBHlzi8/jqsjLP5JtjkHtdGTNQ0wqJLQ5A==",
   "success": true,
-  "projectFilePath": "E:\\asp\\e_commerce_backend\\e_commerce_backend.csproj",
+  "projectFilePath": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\e_commerce_backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\win11\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\win11\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

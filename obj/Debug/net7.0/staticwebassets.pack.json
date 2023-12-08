@@ -1,16 +1,8 @@
 {
   "Files": [
     {
-      "Id": "E:\\asp\\e_commerce_backend\\wwwroot\\customer_images\\20231207151439562.jpg",
-      "PackagePath": "staticwebassets\\customer_images\\20231207151439562.jpg"
-    },
-    {
-      "Id": "E:\\asp\\e_commerce_backend\\wwwroot\\customer_images\\20231207155133185.jpg",
-      "PackagePath": "staticwebassets\\customer_images\\20231207155133185.jpg"
-    },
-    {
-      "Id": "E:\\asp\\e_commerce_backend\\wwwroot\\customer_images\\20231207160053986.jpg",
-      "PackagePath": "staticwebassets\\customer_images\\20231207160053986.jpg"
+      "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231208135514300.jpg",
+      "PackagePath": "staticwebassets\\customer_images\\20231208135514300.jpg"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.e_commerce_backend.props",

@@ -24,14 +24,25 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers(bool? isDeleted = null)
         {
-          if (_context.Customers == null)
-          {
-              return NotFound();
-          }
-            return await _context.Customers.ToListAsync();
+            if (_context.Customers == null)
+            {
+                return NotFound();
+            }
+
+            IQueryable<Customer> customersQuery = _context.Customers;
+
+            if (isDeleted.HasValue)
+            {
+                // Filter by IsDeleted if the parameter is provided
+                customersQuery = customersQuery.Where(c => c.IsDeleted == isDeleted.Value);
+            }
+
+            var customers = await customersQuery.ToListAsync();
+            return customers;
         }
+
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
@@ -56,11 +67,7 @@ namespace e_commerce_backend.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCustomer(int id, [FromForm] IFormFile ?customerImageFile, [FromForm] Customer customer)
         {
-            if (id != customer.Id)
-            {
-                return BadRequest();
-            }
-
+            customer.Id = id;
             // Lấy thông tin khách hàng cũ từ database
             var existingCustomer = await _context.Customers.FindAsync(id);
 
@@ -70,16 +77,17 @@ namespace e_commerce_backend.Controllers
             }
 
             // Kiểm tra xem có hình ảnh cũ không
-            if (!string.IsNullOrEmpty(existingCustomer.CustomerImage))
+            if (!string.IsNullOrEmpty(customer.CustomerImage))
             {
                 // Xóa hình ảnh cũ
-                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, existingCustomer.CustomerImage);
+                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, customer.CustomerImage);
                 if (System.IO.File.Exists(oldImagePath))
                 {
                     System.IO.File.Delete(oldImagePath);
                 }
             }
 
+            // Kiểm tra xem có dữ liệu mới để cập nhật hình ảnh không
             if (customerImageFile != null && customerImageFile.Length > 0)
             {
                 // Lưu trữ hình ảnh mới
@@ -96,8 +104,15 @@ namespace e_commerce_backend.Controllers
             }
 
             // Cập nhật thông tin khách hàng
-            _context.Entry(existingCustomer).CurrentValues.SetValues(customer);
-
+            //_context.Entry(existingCustomer).CurrentValues.SetValues(customer);
+            foreach (var property in typeof(Customer).GetProperties())
+            {
+                var newValue = property.GetValue(customer);
+                if (newValue != null)
+                {
+                    property.SetValue(existingCustomer, newValue);
+                }
+            }
             try
             {
                 await _context.SaveChangesAsync();
@@ -114,7 +129,7 @@ namespace e_commerce_backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(customer);
         }
 
         // POST: api/Customers
@@ -150,16 +165,44 @@ namespace e_commerce_backend.Controllers
             {
                 return NotFound();
             }
+
             var customer = await _context.Customers.FindAsync(id);
+
             if (customer == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            // Update IsDeleted to true instead of removing the customer
+            customer.IsDeleted = true;
+
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(customer);
+        }
+
+        // PUT: api/Customers/Restore/5
+        [HttpPut("Restore/{id}")]
+        public async Task<IActionResult> RestoreCustomer(int id)
+        {
+            if (_context.Customers == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.Customers.FindAsync(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            // Restore the customer by setting IsDeleted to false
+            customer.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(customer); 
         }
 
         private bool CustomerExists(int id)
