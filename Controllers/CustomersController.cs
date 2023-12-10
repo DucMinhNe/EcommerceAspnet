@@ -19,13 +19,13 @@ namespace e_commerce_backend.Controllers
         public CustomersController(EcommerceContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
-             _webHostEnvironment = webHostEnvironment;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: api/Customers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers(bool? isDeleted = null)
-        {
+        {       
             if (_context.Customers == null)
             {
                 return NotFound();
