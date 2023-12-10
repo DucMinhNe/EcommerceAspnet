@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace e_commerce_backend.Models;
 
-public partial class OrderDetail
+public partial class Cart
 {
     public int Id { get; set; }
 
-    public int? OrderId { get; set; }
+    public int? CustomerId { get; set; }
 
     public int? ProductId { get; set; }
 
@@ -17,7 +17,7 @@ public partial class OrderDetail
 
     public bool? IsDeleted { get; set; }
 
-    public virtual Order? Order { get; set; }
+    public virtual Customer? Customer { get; set; }
 
     public virtual Product? Product { get; set; }
 }

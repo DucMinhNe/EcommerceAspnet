@@ -25,6 +25,10 @@ public partial class Product
 
     public bool? IsDeleted { get; set; }
 
+    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
     public virtual ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     public virtual ProductCategory? ProductCategory { get; set; }

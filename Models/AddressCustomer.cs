@@ -9,6 +9,8 @@ public partial class AddressCustomer
 
     public int? CustomerId { get; set; }
 
+    public string? AddressCustomerName { get; set; }
+
     public string? PhoneNumber { get; set; }
 
     public string? City { get; set; }

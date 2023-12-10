@@ -17,6 +17,10 @@ public partial class EcommerceContext : DbContext
 
     public virtual DbSet<AddressCustomer> AddressCustomers { get; set; }
 
+    public virtual DbSet<Cart> Carts { get; set; }
+
+    public virtual DbSet<Comment> Comments { get; set; }
+
     public virtual DbSet<Customer> Customers { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
@@ -43,14 +47,17 @@ public partial class EcommerceContext : DbContext
     {
         modelBuilder.Entity<AddressCustomer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Address_customer_pkey");
+            entity.HasKey(e => e.Id).HasName("Address_Customer_pkey");
 
-            entity.ToTable("Address_customer");
+            entity.ToTable("Address_Customer");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Address)
                 .HasColumnType("character varying")
                 .HasColumnName("address");
+            entity.Property(e => e.AddressCustomerName)
+                .HasColumnType("character varying")
+                .HasColumnName("address_customer_name");
             entity.Property(e => e.City)
                 .HasColumnType("character varying")
                 .HasColumnName("city");
@@ -68,7 +75,56 @@ public partial class EcommerceContext : DbContext
 
             entity.HasOne(d => d.Customer).WithMany(p => p.AddressCustomers)
                 .HasForeignKey(d => d.CustomerId)
-                .HasConstraintName("Address_customer_customer_id_fkey");
+                .HasConstraintName("Address_Customer_customer_id_fkey");
+        });
+
+        modelBuilder.Entity<Cart>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Cart_pkey");
+
+            entity.ToTable("Cart");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.UnitPrice).HasColumnName("unit_price");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Carts)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("Cart_customer_id_fkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Carts)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("Cart_product_id_fkey");
+        });
+
+        modelBuilder.Entity<Comment>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Comment_pkey");
+
+            entity.ToTable("Comment");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CommentImage)
+                .HasColumnType("character varying")
+                .HasColumnName("comment_image");
+            entity.Property(e => e.Content)
+                .HasColumnType("character varying")
+                .HasColumnName("content");
+            entity.Property(e => e.CustomerId).HasColumnName("customer_id");
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.Rating).HasColumnName("rating");
+
+            entity.HasOne(d => d.Customer).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.CustomerId)
+                .HasConstraintName("Comment_customer_id_fkey");
+
+            entity.HasOne(d => d.Product).WithMany(p => p.Comments)
+                .HasForeignKey(d => d.ProductId)
+                .HasConstraintName("Comment_product_id_fkey");
         });
 
         modelBuilder.Entity<Customer>(entity =>
@@ -194,9 +250,9 @@ public partial class EcommerceContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("OrderDetail_pkey");
+            entity.HasKey(e => e.Id).HasName("Order_Detail_pkey");
 
-            entity.ToTable("OrderDetail");
+            entity.ToTable("Order_Detail");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
@@ -207,18 +263,18 @@ public partial class EcommerceContext : DbContext
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.OrderId)
-                .HasConstraintName("OrderDetail_order_id_fkey");
+                .HasConstraintName("Order_Detail_order_id_fkey");
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderDetails)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("OrderDetail_product_id_fkey");
+                .HasConstraintName("Order_Detail_product_id_fkey");
         });
 
         modelBuilder.Entity<PaymentMethod>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Payment_method_pkey");
+            entity.HasKey(e => e.Id).HasName("Payment_Method_pkey");
 
-            entity.ToTable("Payment_method");
+            entity.ToTable("Payment_Method");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
@@ -261,9 +317,9 @@ public partial class EcommerceContext : DbContext
 
         modelBuilder.Entity<ProductCategory>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("Product_category_pkey");
+            entity.HasKey(e => e.Id).HasName("Product_Category_pkey");
 
-            entity.ToTable("Product_category");
+            entity.ToTable("Product_Category");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");

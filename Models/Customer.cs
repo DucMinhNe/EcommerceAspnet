@@ -27,5 +27,9 @@ public partial class Customer
 
     public virtual ICollection<AddressCustomer> AddressCustomers { get; set; } = new List<AddressCustomer>();
 
+    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+
+    public virtual ICollection<Comment> Comments { get; set; } = new List<Comment>();
+
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

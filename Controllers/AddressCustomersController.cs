@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using e_commerce_backend.Models;
+using Microsoft.AspNetCore.Hosting;
 
 namespace e_commerce_backend.Controllers
 {
@@ -22,13 +23,22 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/AddressCustomers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AddressCustomer>>> GetAddressCustomers()
+        public async Task<ActionResult<IEnumerable<AddressCustomer>>> GetAddressCustomers(bool? isDeleted = null)
         {
-          if (_context.AddressCustomers == null)
-          {
-              return NotFound();
-          }
-            return await _context.AddressCustomers.ToListAsync();
+            if (_context.AddressCustomers == null)
+            {
+                return NotFound();
+            }
+
+            IQueryable<AddressCustomer> addressCustomersQuery = _context.AddressCustomers;
+
+            if (isDeleted.HasValue)
+            {
+                // Filter by IsDeleted if the parameter is provided
+                addressCustomersQuery = addressCustomersQuery.Where(c => c.IsDeleted == isDeleted.Value);
+            }
+            var addressCustomers = await addressCustomersQuery.ToListAsync();
+            return addressCustomers;
         }
 
         // GET: api/AddressCustomers/5
@@ -52,15 +62,27 @@ namespace e_commerce_backend.Controllers
         // PUT: api/AddressCustomers/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAddressCustomer(int id, AddressCustomer addressCustomer)
+        public async Task<IActionResult> PutAddressCustomer(int id, [FromForm] AddressCustomer addressCustomer)
         {
-            if (id != addressCustomer.Id)
+            addressCustomer.Id = id;
+            // Lấy thông tin khách hàng cũ từ database
+            var existingAddressCustomer = await _context.AddressCustomers.FindAsync(id);
+
+            if (existingAddressCustomer == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(addressCustomer).State = EntityState.Modified;
-
+            // Cập nhật thông tin khách hàng
+            //_context.Entry(existingAddressCustomer).CurrentValues.SetValues(addressCustomer);
+            foreach (var property in typeof(AddressCustomer).GetProperties())
+            {
+                var newValue = property.GetValue(addressCustomer);
+                if (newValue != null)
+                {
+                    property.SetValue(existingAddressCustomer, newValue);
+                }
+            }
             try
             {
                 await _context.SaveChangesAsync();
@@ -77,13 +99,13 @@ namespace e_commerce_backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(addressCustomer);
         }
 
         // POST: api/AddressCustomers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<AddressCustomer>> PostAddressCustomer(AddressCustomer addressCustomer)
+        public async Task<ActionResult<AddressCustomer>> PostAddressCustomer([FromForm] AddressCustomer addressCustomer)
         {
           if (_context.AddressCustomers == null)
           {
@@ -109,10 +131,35 @@ namespace e_commerce_backend.Controllers
                 return NotFound();
             }
 
-            _context.AddressCustomers.Remove(addressCustomer);
+            //_context.AddressCustomers.Remove(addressCustomer);
+            addressCustomer.IsDeleted = true;
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // PUT: api/AddressCustomers/Restore/5
+        [HttpPut("Restore/{id}")]
+        public async Task<IActionResult> RestoreAddressCustomer(int id)
+        {
+            if (_context.AddressCustomers == null)
+            {
+                return NotFound();
+            }
+
+            var addressCustomer = await _context.AddressCustomers.FindAsync(id);
+
+            if (addressCustomer == null)
+            {
+                return NotFound();
+            }
+
+            // Restore the addressCustomer by setting IsDeleted to false
+            addressCustomer.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(addressCustomer);
         }
 
         private bool AddressCustomerExists(int id)
