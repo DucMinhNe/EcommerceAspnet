@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using e_commerce_backend.Models;
+using Microsoft.DotNet.Scaffolding.Shared;
 
 namespace e_commerce_backend.Controllers
 {
@@ -22,13 +23,20 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/PaymentMethods
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PaymentMethod>>> GetPaymentMethods()
+        public async Task<ActionResult<IEnumerable<PaymentMethod>>> GetPaymentMethods(bool? isDeleted = null)
         {
-          if (_context.PaymentMethods == null)
-          {
-              return NotFound();
-          }
-            return await _context.PaymentMethods.ToListAsync();
+            if (_context.PaymentMethods == null)
+            {
+                return NotFound();
+            }
+            IQueryable<PaymentMethod> paymentMethodsQuery = _context.PaymentMethods;
+            if (isDeleted.HasValue)
+            {
+                // Filter by IsDeleted if the parameter is provided
+                paymentMethodsQuery = paymentMethodsQuery.Where(c => c.IsDeleted == isDeleted.Value);
+            }
+            var paymentMethods = await paymentMethodsQuery.ToListAsync();
+            return paymentMethods;
         }
 
         // GET: api/PaymentMethods/5
@@ -108,11 +116,35 @@ namespace e_commerce_backend.Controllers
             {
                 return NotFound();
             }
-
-            _context.PaymentMethods.Remove(paymentMethod);
+            paymentMethod.IsDeleted = true;
+            //_context.PaymentMethods.Remove(paymentMethod);
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // PUT: api/PaymentMethods/Restore/5
+        [HttpPut("Restore/{id}")]
+        public async Task<IActionResult> RestorePaymentMethod(int id)
+        {
+            if (_context.PaymentMethods == null)
+            {
+                return NotFound();
+            }
+
+            var paymentMethod = await _context.PaymentMethods.FindAsync(id);
+
+            if (paymentMethod == null)
+            {
+                return NotFound();
+            }
+
+            // Restore the paymentMethod by setting IsDeleted to false
+            paymentMethod.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(paymentMethod);
         }
 
         private bool PaymentMethodExists(int id)

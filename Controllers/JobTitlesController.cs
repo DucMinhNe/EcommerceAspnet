@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using e_commerce_backend.Models;
+using Microsoft.DotNet.Scaffolding.Shared;
 
 namespace e_commerce_backend.Controllers
 {
@@ -22,13 +23,20 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/JobTitles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<JobTitle>>> GetJobTitles()
+        public async Task<ActionResult<IEnumerable<JobTitle>>> GetJobTitles(bool? isDeleted = null)
         {
-          if (_context.JobTitles == null)
-          {
-              return NotFound();
-          }
-            return await _context.JobTitles.ToListAsync();
+            if (_context.JobTitles == null)
+            {
+                return NotFound();
+            }
+            IQueryable<JobTitle> jobTitlesQuery = _context.JobTitles;
+            if (isDeleted.HasValue)
+            {
+                // Filter by IsDeleted if the parameter is provided
+                jobTitlesQuery = jobTitlesQuery.Where(c => c.IsDeleted == isDeleted.Value);
+            }
+            var jobTitles = await jobTitlesQuery.ToListAsync();
+            return jobTitles;
         }
 
         // GET: api/JobTitles/5
@@ -109,10 +117,35 @@ namespace e_commerce_backend.Controllers
                 return NotFound();
             }
 
-            _context.JobTitles.Remove(jobTitle);
+            jobTitle.IsDeleted = true;
+            //_context.JobTitles.Remove(jobTitle);
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // PUT: api/JobTitles/Restore/5
+        [HttpPut("Restore/{id}")]
+        public async Task<IActionResult> RestoreJobTitle(int id)
+        {
+            if (_context.JobTitles == null)
+            {
+                return NotFound();
+            }
+
+            var jobTitle = await _context.JobTitles.FindAsync(id);
+
+            if (jobTitle == null)
+            {
+                return NotFound();
+            }
+
+            // Restore the jobTitle by setting IsDeleted to false
+            jobTitle.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(jobTitle);
         }
 
         private bool JobTitleExists(int id)

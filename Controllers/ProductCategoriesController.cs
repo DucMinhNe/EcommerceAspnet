@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using e_commerce_backend.Models;
+using Microsoft.DotNet.Scaffolding.Shared;
 
 namespace e_commerce_backend.Controllers
 {
@@ -22,13 +23,21 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/ProductCategories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductCategory>>> GetProductCategories()
+        public async Task<ActionResult<IEnumerable<ProductCategory>>> GetProductCategories(bool? isDeleted = null)
         {
           if (_context.ProductCategories == null)
           {
               return NotFound();
           }
-            return await _context.ProductCategories.ToListAsync();
+
+            IQueryable<ProductCategory> productCategoriesQuery = _context.ProductCategories;
+            if (isDeleted.HasValue)
+            {
+                // Filter by IsDeleted if the parameter is provided
+                productCategoriesQuery = productCategoriesQuery.Where(c => c.IsDeleted == isDeleted.Value);
+            }
+            var productCategories = await productCategoriesQuery.ToListAsync();
+            return productCategories;
         }
 
         // GET: api/ProductCategories/5
@@ -108,11 +117,34 @@ namespace e_commerce_backend.Controllers
             {
                 return NotFound();
             }
+            productCategory.IsDeleted = true;
+            //_context.ProductCategories.Remove(productCategory);
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
 
-            _context.ProductCategories.Remove(productCategory);
+        // PUT: api/ProductCategories/Restore/5
+        [HttpPut("Restore/{id}")]
+        public async Task<IActionResult> RestoreProductCategory(int id)
+        {
+            if (_context.ProductCategories == null)
+            {
+                return NotFound();
+            }
+
+            var productCategory = await _context.ProductCategories.FindAsync(id);
+
+            if (productCategory == null)
+            {
+                return NotFound();
+            }
+
+            // Restore the productCategory by setting IsDeleted to false
+            productCategory.IsDeleted = false;
+
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return Ok(productCategory);
         }
 
         private bool ProductCategoryExists(int id)

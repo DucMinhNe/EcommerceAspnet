@@ -22,13 +22,20 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/Providers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Provider>>> GetProviders()
+        public async Task<ActionResult<IEnumerable<Provider>>> GetProviders(bool? isDeleted = null)
         {
           if (_context.Providers == null)
           {
               return NotFound();
           }
-            return await _context.Providers.ToListAsync();
+            IQueryable<Provider> providersQuery = _context.Providers;
+            if (isDeleted.HasValue)
+            {
+                // Filter by IsDeleted if the parameter is provided
+                providersQuery = providersQuery.Where(c => c.IsDeleted == isDeleted.Value);
+            }
+            var providers = await providersQuery.ToListAsync();
+            return providers;
         }
 
         // GET: api/Providers/5
@@ -108,11 +115,35 @@ namespace e_commerce_backend.Controllers
             {
                 return NotFound();
             }
-
-            _context.Providers.Remove(provider);
+            provider.IsDeleted = true;
+            //_context.Providers.Remove(provider);
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        // PUT: api/Providers/Restore/5
+        [HttpPut("Restore/{id}")]
+        public async Task<IActionResult> RestoreProvider(int id)
+        {
+            if (_context.Providers == null)
+            {
+                return NotFound();
+            }
+
+            var provider = await _context.Providers.FindAsync(id);
+
+            if (provider == null)
+            {
+                return NotFound();
+            }
+
+            // Restore the provider by setting IsDeleted to false
+            provider.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(provider);
         }
 
         private bool ProviderExists(int id)
