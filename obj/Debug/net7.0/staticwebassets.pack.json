@@ -1,44 +1,28 @@
 {
   "Files": [
     {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231208140402561.jpg",
-      "PackagePath": "staticwebassets\\customer_images\\20231208140402561.jpg"
+      "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231210161035223.png",
+      "PackagePath": "staticwebassets\\customer_images\\20231210161035223.png"
     },
     {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231208140733404.jpg",
-      "PackagePath": "staticwebassets\\customer_images\\20231208140733404.jpg"
+      "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231212000741430.jpg",
+      "PackagePath": "staticwebassets\\customer_images\\20231212000741430.jpg"
     },
     {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231209215924654.png",
-      "PackagePath": "staticwebassets\\customer_images\\20231209215924654.png"
+      "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\employee_images\\20231210161035223.png",
+      "PackagePath": "staticwebassets\\employee_images\\20231210161035223.png"
     },
     {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231209215938145.png",
-      "PackagePath": "staticwebassets\\customer_images\\20231209215938145.png"
+      "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\employee_images\\20231211230304214.png",
+      "PackagePath": "staticwebassets\\employee_images\\20231211230304214.png"
     },
     {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231211002553855.png",
-      "PackagePath": "staticwebassets\\customer_images\\20231211002553855.png"
-    },
-    {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231211150757242.jpg",
-      "PackagePath": "staticwebassets\\customer_images\\20231211150757242.jpg"
-    },
-    {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\employee_images\\20231210015559156.png",
-      "PackagePath": "staticwebassets\\employee_images\\20231210015559156.png"
-    },
-    {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\employee_images\\20231210015717477.png",
-      "PackagePath": "staticwebassets\\employee_images\\20231210015717477.png"
-    },
-    {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\employee_images\\20231210154403242.png",
-      "PackagePath": "staticwebassets\\employee_images\\20231210154403242.png"
-    },
-    {
-      "Id": "D:\\ecomerce\\ecomerce_backend_aspnet\\wwwroot\\product_images\\20231210161035223.png",
+      "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\product_images\\20231210161035223.png",
       "PackagePath": "staticwebassets\\product_images\\20231210161035223.png"
+    },
+    {
+      "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\product_images\\20231211172801145.jpg",
+      "PackagePath": "staticwebassets\\product_images\\20231211172801145.jpg"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.e_commerce_backend.props",

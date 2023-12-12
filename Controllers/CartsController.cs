@@ -22,13 +22,21 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/Carts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cart>>> GetCarts()
+        public async Task<ActionResult<IEnumerable<Cart>>> GetCarts(bool? isDeleted = null)
         {
           if (_context.Carts == null)
           {
               return NotFound();
           }
-            return await _context.Carts.ToListAsync();
+            IQueryable<Cart> cartsQuery = _context.Carts;
+
+            if (isDeleted.HasValue)
+            {
+                // Filter by IsDeleted if the parameter is provided
+                cartsQuery = cartsQuery.Where(c => c.IsDeleted == isDeleted.Value);
+            }
+            var carts = await cartsQuery.ToListAsync();
+            return carts;
         }
 
         // GET: api/Carts/5
@@ -52,15 +60,27 @@ namespace e_commerce_backend.Controllers
         // PUT: api/Carts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCart(int id, Cart cart)
+        public async Task<IActionResult> PutCart(int id, [FromForm] Cart cart)
         {
-            if (id != cart.Id)
+            cart.Id = id;
+            // Lấy thông tin khách hàng cũ từ database
+            var existingCart = await _context.Carts.FindAsync(id);
+
+            if (existingCart == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(cart).State = EntityState.Modified;
-
+            // Cập nhật thông tin khách hàng
+            //_context.Entry(existingCart).CurrentValues.SetValues(cart);
+            foreach (var property in typeof(Cart).GetProperties())
+            {
+                var newValue = property.GetValue(cart);
+                if (newValue != null)
+                {
+                    property.SetValue(existingCart, newValue);
+                }
+            }
             try
             {
                 await _context.SaveChangesAsync();
@@ -77,13 +97,13 @@ namespace e_commerce_backend.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(cart);
         }
 
         // POST: api/Carts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Cart>> PostCart(Cart cart)
+        public async Task<ActionResult<Cart>> PostCart([FromForm] Cart cart)
         {
           if (_context.Carts == null)
           {
@@ -109,12 +129,35 @@ namespace e_commerce_backend.Controllers
                 return NotFound();
             }
 
-            _context.Carts.Remove(cart);
+            //_context.Carts.Remove(cart);
+            cart.IsDeleted = true;
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
+        // PUT: api/Carts/Restore/5
+        [HttpPut("Restore/{id}")]
+        public async Task<IActionResult> RestoreCart(int id)
+        {
+            if (_context.Carts == null)
+            {
+                return NotFound();
+            }
 
+            var cart = await _context.Carts.FindAsync(id);
+
+            if (cart == null)
+            {
+                return NotFound();
+            }
+
+            // Restore the cart by setting IsDeleted to false
+            cart.IsDeleted = false;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(cart);
+        }
         private bool CartExists(int id)
         {
             return (_context.Carts?.Any(e => e.Id == id)).GetValueOrDefault();
