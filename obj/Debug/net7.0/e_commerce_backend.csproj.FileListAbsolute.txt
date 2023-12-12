@@ -700,3 +700,16 @@ D:\ecomerce\ecomerce_backend_aspnet\obj\Debug\net7.0\refint\e_commerce_backend.d
 D:\ecomerce\ecomerce_backend_aspnet\obj\Debug\net7.0\e_commerce_backend.pdb
 D:\ecomerce\ecomerce_backend_aspnet\obj\Debug\net7.0\e_commerce_backend.genruntimeconfig.cache
 D:\ecomerce\ecomerce_backend_aspnet\obj\Debug\net7.0\ref\e_commerce_backend.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.IdentityModel.Logging.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
+E:\ecommerce_project\ecomerce_backend_aspnet\bin\Debug\net7.0\Microsoft.Extensions.Options.dll

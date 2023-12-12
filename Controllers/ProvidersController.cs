@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using e_commerce_backend.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace e_commerce_backend.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProvidersController : ControllerBase
