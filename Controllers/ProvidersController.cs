@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace e_commerce_backend.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ProvidersController : ControllerBase

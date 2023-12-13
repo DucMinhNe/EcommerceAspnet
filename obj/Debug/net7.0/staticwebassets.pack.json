@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\product_images\\20231211172801145.jpg"
     },
     {
+      "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\product_images\\20231213160930663.png",
+      "PackagePath": "staticwebassets\\product_images\\20231213160930663.png"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.e_commerce_backend.props",
       "PackagePath": "build\\e_commerce_backend.props"
     },

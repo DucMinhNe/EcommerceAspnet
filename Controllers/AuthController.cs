@@ -55,15 +55,15 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] Employee model)
     {
-        var user = await _context.Employees.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+        var employee = await _context.Employees.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
 
-        if (user == null)
+        if (employee == null)
         {
             return Unauthorized(new { Message = "Invalid credentials" });
         }
 
         // Generate JWT token
-        var token = GenerateJwtToken(user);
+        var token = GenerateJwtToken(employee);
 
         return Ok(new { Token = token });
     }
@@ -73,11 +73,10 @@ public class AuthController : ControllerBase
         var claims = new List<Claim>
         {
         new Claim("id", user.Id.ToString()),
-        new Claim("name", $"{user.FirstName} {user.LastName}"),
+        new Claim("name", $"{user.FirstName}{user.LastName}"),
         new Claim("email", user.Email ?? ""),
         new Claim("phoneNumber", user.PhoneNumber ?? ""),
          new Claim("employeeImage", user.EmployeeImage ?? ""),
-        // Add other claims as needed
         };
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

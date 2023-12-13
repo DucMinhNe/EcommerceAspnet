@@ -23,18 +23,32 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts(bool? isDeleted = null)
+        public async Task<ActionResult<IEnumerable<object>>> GetProducts(bool? isDeleted = null)
         {
             if (_context.Products == null)
             {
                 return NotFound();
             }
 
-            IQueryable<Product> productsQuery = _context.Products;
+            var productsQuery = _context.Products
+                .Include(p => p.ProductCategory) // Bao gồm thông tin từ bảng ProductCategory
+                .Select(p => new
+                {
+                    p.Id,
+                    p.ProductName,
+                    p.Description,
+                    p.Rating,
+                    p.UnitPrice,
+                    p.StockQuantity,
+                    p.ProductImage,
+                    p.ProductCategoryId,
+                    ProductCategoryName = p.ProductCategory != null ? p.ProductCategory.ProductCategoryName : null,
+                    p.ProviderId,
+                    p.IsDeleted
+                });
 
             if (isDeleted.HasValue)
             {
-                // Filter by IsDeleted if the parameter is provided
                 productsQuery = productsQuery.Where(c => c.IsDeleted == isDeleted.Value);
             }
             var products = await productsQuery.ToListAsync();

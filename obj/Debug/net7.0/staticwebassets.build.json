@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "JLGAf+/+Vburwx5Sap8ngdh3TaSAUUEzb+GZMyQKYKc=",
+  "Hash": "hgorpAqTOR8KGVvk97dqEuvKGu76W6Fh8MSY2j30jWc=",
   "Source": "e_commerce_backend",
   "BasePath": "_content/e_commerce_backend",
   "Mode": "Default",
@@ -134,6 +134,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\product_images\\20231211172801145.jpg"
+    },
+    {
+      "Identity": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\product_images\\20231213160930663.png",
+      "SourceId": "e_commerce_backend",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\",
+      "BasePath": "_content/e_commerce_backend",
+      "RelativePath": "product_images/20231213160930663.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\product_images\\20231213160930663.png"
     }
   ]
 }
