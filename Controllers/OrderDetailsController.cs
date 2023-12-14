@@ -50,8 +50,9 @@ namespace e_commerce_backend.Controllers
         //    var orderDetails = await orderDetailsQuery.ToListAsync();
         //    return orderDetails;
         //}
-        [HttpGet]
+
         //[HttpGet("GetOrderDetailsByOrderId")]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<OrderDetail>>> GetOrderDetailsByOrderId(int? orderId, bool? isDeleted = null)
         {
             if (_context.OrderDetails == null)

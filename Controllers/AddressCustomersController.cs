@@ -23,7 +23,7 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/AddressCustomers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AddressCustomer>>> GetAddressCustomers(bool? isDeleted = null)
+        public async Task<ActionResult<IEnumerable<AddressCustomer>>> GetAddressCustomers(int? customerId,bool? isDeleted = null)
         {
             if (_context.AddressCustomers == null)
             {
@@ -32,6 +32,10 @@ namespace e_commerce_backend.Controllers
 
             IQueryable<AddressCustomer> addressCustomersQuery = _context.AddressCustomers;
 
+            if (customerId.HasValue)
+            {
+                addressCustomersQuery = addressCustomersQuery.Where(c => c.CustomerId == customerId.Value);
+            }
             if (isDeleted.HasValue)
             {
                 // Filter by IsDeleted if the parameter is provided
