@@ -26,7 +26,7 @@ public class AuthController : ControllerBase
         _context = context;
     }
 
-    [HttpPost("register")]
+    [HttpPost("employee/register")]
     public async Task<IActionResult> Register([FromBody] Employee model)
     {
         var existingUser = await _context.Employees.FirstOrDefaultAsync(u => u.Email == model.Email);
@@ -52,7 +52,7 @@ public class AuthController : ControllerBase
         return Ok(new { Message = "Registration successful" });
     }
 
-    [HttpPost("login")]
+    [HttpPost("employee/login")]
     public async Task<IActionResult> Login([FromBody] Employee model)
     {
         var employee = await _context.Employees.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
@@ -89,6 +89,72 @@ public class AuthController : ControllerBase
             signingCredentials: creds
         );
 
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+
+    [HttpPost("customer/register")]
+    public async Task<IActionResult> CustomerRegister([FromBody] Customer model)
+    {
+        var existingUser = await _context.Customers.FirstOrDefaultAsync(u => u.Email == model.Email);
+
+        if (existingUser != null)
+        {
+            return Conflict(new { Message = "Email is already in use" });
+        }
+
+        var user = new Customer
+        {
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+            Email = model.Email,
+            PhoneNumber = model.PhoneNumber,
+            BirthDate = model.BirthDate,
+            Password = model.Password,
+        };
+
+        _context.Customers.Add(user);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Message = "Registration successful" });
+    }
+
+    [HttpPost("customer/login")]
+    public async Task<IActionResult> CustomerLogin([FromBody] Customer model)
+    {
+        var customer = await _context.Customers.FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+
+        if (customer == null)
+        {
+            return Unauthorized(new { Message = "Invalid credentials" });
+        }
+
+        // Generate JWT token
+        var token = GenerateJwtCustomerToken(customer);
+
+        return Ok(new { Token = token });
+    }
+
+    private string GenerateJwtCustomerToken(Customer user)
+    {
+        var claims = new List<Claim>
+            {
+            new Claim("id", user.Id.ToString()),
+            new Claim("name", $"{user.FirstName}{user.LastName}"),
+            new Claim("email", user.Email ?? ""),
+            new Claim("phoneNumber", user.PhoneNumber ?? ""),
+            new Claim("customerImage", user.CustomerImage ?? ""),
+            };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var expires = DateTime.UtcNow.AddHours(Convert.ToDouble(_configuration["JWT:ExpiresInHours"]));
+            var token = new JwtSecurityToken(
+            issuer: _configuration["JWT:ValidIssuer"],
+            audience: _configuration["JWT:ValidAudience"],
+            claims,
+            expires: expires,
+            signingCredentials: creds
+        );
+ 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 }

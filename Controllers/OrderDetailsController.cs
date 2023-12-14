@@ -21,14 +21,59 @@ namespace e_commerce_backend.Controllers
         }
 
         // GET: api/OrderDetails
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<OrderDetail>>> GetOrderDetails()
+        //{
+        //  if (_context.OrderDetails == null)
+        //  {
+        //      return NotFound();
+        //  }
+        //    return await _context.OrderDetails.ToListAsync();
+        //}
+        // GET: api/OrderDetails
+
+        // GET: api/OrderDetails
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<OrderDetail>>> GetOrderDetails(bool? isDeleted = null)
+        //{
+        //    if (_context.OrderDetails == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    IQueryable<OrderDetail> orderDetailsQuery = _context.OrderDetails;
+
+        //    if (isDeleted.HasValue)
+        //    {
+        //        // Filter by IsDeleted if the parameter is provided
+        //        orderDetailsQuery = orderDetailsQuery.Where(c => c.IsDeleted == isDeleted.Value);
+        //    }
+        //    var orderDetails = await orderDetailsQuery.ToListAsync();
+        //    return orderDetails;
+        //}
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OrderDetail>>> GetOrderDetails()
+        //[HttpGet("GetOrderDetailsByOrderId")]
+        public async Task<ActionResult<IEnumerable<OrderDetail>>> GetOrderDetailsByOrderId(int? orderId, bool? isDeleted = null)
         {
-          if (_context.OrderDetails == null)
-          {
-              return NotFound();
-          }
-            return await _context.OrderDetails.ToListAsync();
+            if (_context.OrderDetails == null)
+            {
+                return NotFound();
+            }
+
+            IQueryable<OrderDetail> orderDetailsQuery = _context.OrderDetails;
+
+            // Filter by orderId
+            if (orderId.HasValue)
+            {
+                // Filter by IsDeleted if the parameter is provided
+                orderDetailsQuery = orderDetailsQuery.Where(c => c.OrderId == orderId);
+            }
+            if (isDeleted.HasValue)
+            {
+                orderDetailsQuery = orderDetailsQuery.Where(c => c.IsDeleted == isDeleted.Value);
+            }
+
+            var orderDetails = await orderDetailsQuery.ToListAsync();
+            return orderDetails;
         }
 
         // GET: api/OrderDetails/5
@@ -83,7 +128,7 @@ namespace e_commerce_backend.Controllers
         // POST: api/OrderDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<OrderDetail>> PostOrderDetail(OrderDetail orderDetail)
+        public async Task<ActionResult<OrderDetail>> PostOrderDetail([FromForm] OrderDetail orderDetail)
         {
           if (_context.OrderDetails == null)
           {
