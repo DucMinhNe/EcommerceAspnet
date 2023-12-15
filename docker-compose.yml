@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+  ecomerce_admin_react:
+    container_name: ecomerce_admin_react
+    build:
+      context: ../ecomerce_admin_react
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  
+  api_swagger_docker:
+    container_name: api_swagger_docker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    # depends_on:
+    #   - db
+  # db:
+  #   container_name: db
+  #   image: postgres:16
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=123456
+  #     - POSTGRES_DB=ecommerce
+  #   ports:
+  #     - "5433:5432"
+    # volumes:
+      # - pgdata:/var/lib/postgresql/data 
+

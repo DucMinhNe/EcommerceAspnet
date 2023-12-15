@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/hqNNZg1kpuSods7ZtpYksMHNmnMixUWOGUUJF6SJ1NXZaKpFaBkKNJNVR1XoaVv6QSPEJCq3titWOEwW0JpEA==",
+  "dgSpecHash": "3AOMcNzqAn4GY7LRBsy5T+ptDMv9BEZnx7aW6B4lzMB4tRCI2xoEk9AqX/XbkZUz73T5sTUI0tVgPg1n1Z2uaw==",
   "success": true,
   "projectFilePath": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\e_commerce_backend.csproj",
   "expectedPackageFiles": [
@@ -105,6 +105,7 @@
     "C:\\Users\\win11\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\win11\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\win11\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\win11\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.4\\microsoft.visualstudio.azure.containers.tools.targets.1.19.4.nupkg.sha512",
     "C:\\Users\\win11\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\7.0.11\\microsoft.visualstudio.web.codegeneration.7.0.11.nupkg.sha512",
     "C:\\Users\\win11\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\7.0.11\\microsoft.visualstudio.web.codegeneration.core.7.0.11.nupkg.sha512",
     "C:\\Users\\win11\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.design\\7.0.11\\microsoft.visualstudio.web.codegeneration.design.7.0.11.nupkg.sha512",

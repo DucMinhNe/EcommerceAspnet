@@ -12,7 +12,7 @@
  Target Server Version : 160000 (160000)
  File Encoding         : 65001
 
- Date: 12/12/2023 09:37:02
+ Date: 15/12/2023 16:20:58
 */
 
 
@@ -405,7 +405,7 @@ CACHE 1
 -- ----------------------------
 ALTER SEQUENCE "public"."Address_Customer_id_seq"
 OWNED BY "public"."Address_Customer"."id";
-SELECT setval('"public"."Address_Customer_id_seq"', 1, true);
+SELECT setval('"public"."Address_Customer_id_seq"', 5, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -426,35 +426,35 @@ SELECT setval('"public"."Comment_id_seq"', 1, false);
 -- ----------------------------
 ALTER SEQUENCE "public"."Customer_id_seq"
 OWNED BY "public"."Customer"."id";
-SELECT setval('"public"."Customer_id_seq"', 1, true);
+SELECT setval('"public"."Customer_id_seq"', 11, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."Employee_id_seq"
 OWNED BY "public"."Employee"."id";
-SELECT setval('"public"."Employee_id_seq"', 1, false);
+SELECT setval('"public"."Employee_id_seq"', 1, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."Job_Title_id_seq"
 OWNED BY "public"."Job_Title"."id";
-SELECT setval('"public"."Job_Title_id_seq"', 1, false);
+SELECT setval('"public"."Job_Title_id_seq"', 1, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."Order_Detail_id_seq"
 OWNED BY "public"."Order_Detail"."id";
-SELECT setval('"public"."Order_Detail_id_seq"', 1, false);
+SELECT setval('"public"."Order_Detail_id_seq"', 14, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."Order_id_seq"
 OWNED BY "public"."Order"."id";
-SELECT setval('"public"."Order_id_seq"', 1, false);
+SELECT setval('"public"."Order_id_seq"', 23, true);
 
 -- ----------------------------
 -- Alter sequences owned by
@@ -468,14 +468,14 @@ SELECT setval('"public"."Payment_Method_id_seq"', 1, false);
 -- ----------------------------
 ALTER SEQUENCE "public"."Product_Category_id_seq"
 OWNED BY "public"."Product_Category"."id";
-SELECT setval('"public"."Product_Category_id_seq"', 1, false);
+SELECT setval('"public"."Product_Category_id_seq"', 2, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."Product_id_seq"
 OWNED BY "public"."Product"."id";
-SELECT setval('"public"."Product_id_seq"', 1, true);
+SELECT setval('"public"."Product_id_seq"', 3, true);
 
 -- ----------------------------
 -- Alter sequences owned by
