@@ -22,7 +22,7 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/Orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Order>>> GetOrders(bool? isDeleted = null)
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrders(int? customerId, bool? isDeleted = null)
         {
           if (_context.Orders == null)
           {
@@ -30,6 +30,11 @@ namespace e_commerce_backend.Controllers
           }
             IQueryable<Order> ordersQuery = _context.Orders;
 
+            if (customerId.HasValue)
+            {
+                // Filter by IsDeleted if the parameter is provided
+                ordersQuery = ordersQuery.Where(c => c.CustomerId == customerId.Value);
+            }
             if (isDeleted.HasValue)
             {
                 // Filter by IsDeleted if the parameter is provided

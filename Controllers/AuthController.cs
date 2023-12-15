@@ -107,9 +107,10 @@ public class AuthController : ControllerBase
             FirstName = model.FirstName,
             LastName = model.LastName,
             Email = model.Email,
+            Password = model.Password,
             PhoneNumber = model.PhoneNumber,
             BirthDate = model.BirthDate,
-            Password = model.Password,
+            Gender = model.Gender,
         };
 
         _context.Customers.Add(user);

@@ -136,6 +136,76 @@ namespace e_commerce_backend.Controllers
             return Ok(customer);
         }
 
+        // PUT: api/Customers/UpdateInfomation/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("/UpdateInfomation/{id}")]
+        public async Task<IActionResult> UpdateInfomationCustomer(int id, [FromForm] IFormFile? customerImageFile, [FromForm] Customer customer)
+        {
+            customer.Id = id;
+            // Lấy thông tin khách hàng cũ từ database
+            var existingCustomer = await _context.Customers.FindAsync(id);
+
+            if (existingCustomer == null)
+            {
+                return NotFound();
+            }
+
+            // Kiểm tra xem có hình ảnh cũ không
+            if (!string.IsNullOrEmpty(customer.CustomerImage))
+            {
+                // Xóa hình ảnh cũ
+                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, customer.CustomerImage);
+                if (System.IO.File.Exists(oldImagePath))
+                {
+                    System.IO.File.Delete(oldImagePath);
+                }
+            }
+
+            // Kiểm tra xem có dữ liệu mới để cập nhật hình ảnh không
+            if (customerImageFile != null && customerImageFile.Length > 0)
+            {
+                // Lưu trữ hình ảnh mới
+                var fileName = $"{DateTime.Now:yyyyMMddHHmmssfff}{Path.GetExtension(customerImageFile.FileName)}";
+                var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "customer_images", fileName);
+
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    await customerImageFile.CopyToAsync(stream);
+                }
+
+                // Cập nhật thông tin của khách hàng
+                customer.CustomerImage = "customer_images/" + fileName;
+            }
+
+            // Cập nhật thông tin khách hàng
+            //_context.Entry(existingCustomer).CurrentValues.SetValues(customer);
+            foreach (var property in typeof(Customer).GetProperties())
+            {
+                var newValue = property.GetValue(customer);
+                if (newValue != null)
+                {
+                    property.SetValue(existingCustomer, newValue);
+                }
+            }
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CustomerExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok(customer);
+        }
+
         // POST: api/Customers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
