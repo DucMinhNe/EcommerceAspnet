@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\customer_images\\20231215112704066.jpg"
     },
     {
+      "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\customer_images\\20231215152948810.png",
+      "PackagePath": "staticwebassets\\customer_images\\20231215152948810.png"
+    },
+    {
       "Id": "E:\\ecommerce_project\\ecomerce_backend_aspnet\\wwwroot\\employee_images\\20231210161035223.png",
       "PackagePath": "staticwebassets\\employee_images\\20231210161035223.png"
     },

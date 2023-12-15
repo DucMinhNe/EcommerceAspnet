@@ -16,7 +16,6 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowAnyOrigin", builder =>
     {
         builder.AllowAnyOrigin()
-               .WithOrigins("http://example.com")
                .AllowAnyMethod()
                .AllowAnyHeader();
     });
