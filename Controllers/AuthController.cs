@@ -76,7 +76,8 @@ public class AuthController : ControllerBase
         new Claim("name", $"{user.FirstName}{user.LastName}"),
         new Claim("email", user.Email ?? ""),
         new Claim("phoneNumber", user.PhoneNumber ?? ""),
-         new Claim("employeeImage", user.EmployeeImage ?? ""),
+        new Claim("jobTitleId", user.JobTitleId.ToString()),
+        new Claim("employeeImage", user.EmployeeImage ?? ""),
         };
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
