@@ -25,7 +25,7 @@ namespace e_commerce_backend.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> GetProducts(bool? isDeleted = null)
+        public async Task<ActionResult<IEnumerable<object>>> GetProducts(int? productCategoryId ,bool? isDeleted = null)
         {
             if (_context.Products == null)
             {
@@ -48,7 +48,10 @@ namespace e_commerce_backend.Controllers
                     p.ProviderId,
                     p.IsDeleted
                 });
-
+            if (productCategoryId.HasValue)
+            {
+                productsQuery = productsQuery.Where(c => c.ProductCategoryId == productCategoryId.Value);
+            }
             if (isDeleted.HasValue)
             {
                 productsQuery = productsQuery.Where(c => c.IsDeleted == isDeleted.Value);
