@@ -80,20 +80,19 @@ namespace e_commerce_backend.Controllers
                 return NotFound();
             }
 
-            // Kiểm tra xem có hình ảnh cũ không
-            if (!string.IsNullOrEmpty(customer.CustomerImage))
-            {
-                // Xóa hình ảnh cũ
-                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, customer.CustomerImage);
-                if (System.IO.File.Exists(oldImagePath))
-                {
-                    System.IO.File.Delete(oldImagePath);
-                }
-            }
-
             // Kiểm tra xem có dữ liệu mới để cập nhật hình ảnh không
             if (customerImageFile != null && customerImageFile.Length > 0)
             {
+                // Xóa hình ảnh cũ đang được lưu trong database
+                if (!string.IsNullOrEmpty(existingCustomer.CustomerImage))
+                {
+                    var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, existingCustomer.CustomerImage);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
                 // Lưu trữ hình ảnh mới
                 var fileName = $"{DateTime.Now:yyyyMMddHHmmssfff}{Path.GetExtension(customerImageFile.FileName)}";
                 var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "customer_images", fileName);
@@ -150,20 +149,19 @@ namespace e_commerce_backend.Controllers
                 return NotFound();
             }
 
-            // Kiểm tra xem có hình ảnh cũ không
-            if (!string.IsNullOrEmpty(customer.CustomerImage))
-            {
-                // Xóa hình ảnh cũ
-                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, customer.CustomerImage);
-                if (System.IO.File.Exists(oldImagePath))
-                {
-                    System.IO.File.Delete(oldImagePath);
-                }
-            }
-
             // Kiểm tra xem có dữ liệu mới để cập nhật hình ảnh không
             if (customerImageFile != null && customerImageFile.Length > 0)
             {
+                // Xóa hình ảnh cũ đang được lưu trong database
+                if (!string.IsNullOrEmpty(existingCustomer.CustomerImage))
+                {
+                    var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, existingCustomer.CustomerImage);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
                 // Lưu trữ hình ảnh mới
                 var fileName = $"{DateTime.Now:yyyyMMddHHmmssfff}{Path.GetExtension(customerImageFile.FileName)}";
                 var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "customer_images", fileName);

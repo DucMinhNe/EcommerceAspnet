@@ -92,20 +92,19 @@ namespace e_commerce_backend.Controllers
                 return NotFound();
             }
 
-            // Kiểm tra xem có hình ảnh cũ không
-            if (!string.IsNullOrEmpty(product.ProductImage))
-            {
-                // Xóa hình ảnh cũ
-                var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, product.ProductImage);
-                if (System.IO.File.Exists(oldImagePath))
-                {
-                    System.IO.File.Delete(oldImagePath);
-                }
-            }
-
             // Kiểm tra xem có dữ liệu mới để cập nhật hình ảnh không
             if (productImageFile != null && productImageFile.Length > 0)
             {
+                // Xóa hình ảnh cũ đang được lưu trong database
+                if (!string.IsNullOrEmpty(existingProduct.ProductImage))
+                {
+                    var oldImagePath = Path.Combine(_webHostEnvironment.WebRootPath, existingProduct.ProductImage);
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                }
+
                 // Lưu trữ hình ảnh mới
                 var fileName = $"{DateTime.Now:yyyyMMddHHmmssfff}{Path.GetExtension(productImageFile.FileName)}";
                 var filePath = Path.Combine(_webHostEnvironment.WebRootPath, "product_images", fileName);
